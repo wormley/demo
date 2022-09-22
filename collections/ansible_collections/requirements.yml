@@ -1,0 +1,4 @@
+---
+
+collections:
+  - git@github.com:wormley/demo#dojo/steve,bar
