@@ -1,4 +1,4 @@
 ---
 
 collections:
-  - git@github.com:wormley/demo#dojo/steve,bar
+  - https://github.com/wormley/demo#/dojo/steve/,bar
