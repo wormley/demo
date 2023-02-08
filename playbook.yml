@@ -1,13 +1,13 @@
 ---
 
- - name: Prepare for deployment
-   hosts: localhost
-   tasks:
+- name: Prepare for deployment
+  hosts: localhost
+  tasks:
 
-   - name: Print Hello World
-     ansible.builtin.debug:
-       msg: "Hello World"
+    - name: Print Hello World
+      ansible.builtin.debug:
+        msg: "Hello World"
 
-   - name: Print Hello World
-     ansible.builtin.debug:
-       msg: "Hello {{ ansible_host }}"
+    - name: Print Hello World
+      ansible.builtin.debug:
+        msg: "Hello {{ ansible_host }}"
