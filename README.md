@@ -1,1 +1,2 @@
-This is where I play with Git
+Sample Devcontainer for Ansible
+Be sure to rename as appropriate.
