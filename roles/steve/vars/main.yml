@@ -1,0 +1,21 @@
+---
+
+webservers:
+  - 10.11.12.11
+  - 10.11.12.13
+  - 10.11.12.15
+
+websites:
+  public.example.com:
+    webroot: /var/www/public/
+    ssl_path: /etc/ssl/public.crt
+    listen_ports:
+      - 80
+      - 443
+  internal.example.com:
+    webroot: /var/www/internal/
+    ssl_path: /etc/ssl/internal.crt
+    listen_ports:
+      - 8080
+      - 8443
+
