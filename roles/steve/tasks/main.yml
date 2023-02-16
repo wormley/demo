@@ -1,0 +1,7 @@
+---
+
+- name: Copy our templated file to the remote host
+  ansible.builtin.template:
+    src: mytemplate.txt.j2
+    dest: steve.txt
+

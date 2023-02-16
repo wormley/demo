@@ -1,0 +1,10 @@
+---
+
+
+- name: Stuff
+  ansible.builtin.debug:
+    msg: hello
+  loop:
+    - 1
+    - 2
+

@@ -1,13 +1,12 @@
 ---
 
 - name: Prepare for deployment
-  hosts: localhost
+  hosts: all
+  become: false
+  gather_facts: no
   tasks:
 
-    - name: Print Hello World
-      ansible.builtin.debug:
-        msg: "Hello World"
+    - name: Call My Role
+      ansible.builtin.import_role:
+        name: steve
 
-    - name: Print Hello World
-      ansible.builtin.debug:
-        msg: "Hello {{ ansible_host }}"
