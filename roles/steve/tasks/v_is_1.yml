@@ -1,0 +1,12 @@
+---
+- name: "Print v"
+  ansible.builtin.debug:
+    msg: "{{ v }}"
+
+- name: Set a variable again
+  ansible.builtin.set_fact:
+    v: 2
+
+- name: "Print v"
+  ansible.builtin.debug:
+    msg: "{{ v }}"

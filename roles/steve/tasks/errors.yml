@@ -1,0 +1,81 @@
+---
+- name: Set a variable
+  ansible.builtin.set_fact:
+    v: 1
+
+- name: My Error Handling Block
+  when: v == 1
+  ansible.builtin.import_tasks:
+    file: "v_is_1.yml"
+
+- name: Set a variable
+  ansible.builtin.set_fact:
+    v: 1
+
+- name: My Error Handling Block
+  when: v == 1
+  ansible.builtin.include_tasks:
+    file: "v_is_1.yml"
+
+- name: My Error Handling Block
+  when: v == 1
+  ansible.builtin.include_tasks:
+    file: "v_is_1.yml"
+
+
+
+  # block:
+  # - name: "Print v"
+  #   ansible.builtin.debug:
+  #     msg: "{{ v }}"
+  #   when: v == 1
+
+  # - name: Set a variable again
+  #   ansible.builtin.set_fact:
+  #     v: 2
+  #   when: v == 1
+
+  # - name: "Print v"
+  #   ansible.builtin.debug:
+  #     msg: "{{ v }}"
+  #   when: v == 1
+
+
+
+
+
+
+
+
+
+  #   - name: Make an error
+  #     ansible.builtin.shell: "{{ item }}"
+  #     failed_when: result.rc == 10 or result.rc == 0
+  #     changed_when: result.rc == 1
+  #     register: result
+  #     loop:
+  #     - "/bin/true"
+
+  #   - name: Make an error
+  #     ansible.builtin.shell: "{{ item }}"
+  #     failed_when: result.rc == 10 or result.rc == 0
+  #     changed_when: result.rc == 1
+  #     register: result
+  #     loop:
+  #     - "/bin/false"
+  #   rescue:
+  #   - name: "Fix the broken server"
+  #     ansible.builtin.debug:
+  #       msg: "{{ ansible_failed_task }} {{ ansible_failed_result }}"
+  #   - name: Fail again
+  #     ansible.builtin.fail:
+  #     when: "ansible_failed_task['name'] == 'Not Make an error'"
+  #   always:
+  #   - name: "This always runs"
+  #     ansible.builtin.debug:
+  #       msg: "This always runs"
+
+  # - name: "Last"
+  #   ansible.builtin.debug:
+  #     msg: "Last message"
+
