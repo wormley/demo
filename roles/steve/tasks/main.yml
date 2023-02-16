@@ -1,7 +1,29 @@
 ---
 
-- name: Copy our templated file to the remote host
-  ansible.builtin.template:
-    src: mytemplate.txt.j2
-    dest: steve.txt
+- name: Set the NTP Server List
+  ansible.builtin.set_fact:
+    ntp_servers:
+      - 1.2.3.4
+      - pool.ntp.org
+      - timeypi.wormley.com
+
+- name: Set the NTP Server String
+  ansible.builtin.set_fact:
+    ntp_list: |
+      {%- set ns = namespace(l = []) -%}
+      {%- for i in ntp_servers -%}
+      {%- set _ = ns.l.append(i) -%}
+      {%- endfor -%}
+      {{ ns.l }}
+
+
+- name: Print
+  ansible.builtin.debug:
+    var: ntp_list
+
+
+# - name: Copy our templated file to the remote host
+#   ansible.builtin.template:
+#     src: mytemplate.txt.j2
+#     dest: steve.txt
 
