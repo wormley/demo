@@ -5,8 +5,14 @@
   become: false
   gather_facts: no
   tasks:
+    # - name: Bob
+    #   debug:
+    #     msg: "{{ hostvars }}"
+    #   when: " 'ungrouped' is not in group_names"
+
+
 
     - name: Call My Role
       ansible.builtin.import_role:
         name: steve
-
+        tasks_from: stuff

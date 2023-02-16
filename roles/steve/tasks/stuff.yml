@@ -1,0 +1,35 @@
+---
+- ansible.builtin.shell: "roles/steve/scripts/important.py"
+  delegate_to: "{{ loadbalancer }}"
+  register: myvar
+  run_once: true
+
+- name: Set backup time
+  ansible.builtin.set_fact:
+    backuptime: "{{ lookup('pipe','date') }}"
+  run_once: true   
+
+- name: Debug myvar
+  ansible.builtin.debug:
+    var: backuptime
+
+# - name: Set load balancer variables
+#   ansible.builtin.set_fact:
+#     iplist: "{{ (iplist | default([])) + [ hostvars[item]['fakeip'] ] }}"
+#   loop: "{{ groups['webservers'] }}" 
+#   when: "'loadbalancer' is in group_names"
+
+
+# - name: Set facts with delegate
+#   ansible.builtin.set_fact:
+#     lb_ip: "{{ fakeip }}"
+#   delegate_to: "{{ item }}"
+#   delegate_facts: true
+#   loop: "{{ groups['webservers']}}"
+#   when: "'loadbalancer' is in group_names"
+
+# - name: Debug lb_ip
+#   ansible.builtin.debug:
+#     var: lb_ip
+
+  
