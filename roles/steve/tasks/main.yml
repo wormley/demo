@@ -1,29 +1,72 @@
 ---
 
-- name: Set the NTP Server List
-  ansible.builtin.set_fact:
-    ntp_servers:
-      - 1.2.3.4
-      - pool.ntp.org
-      - timeypi.wormley.com
+- name: Get Authentication Token
+  ansible.builtin.uri:
+    # body:
+    #   username: user1
+    #   password: "{{ password_var }}"
+    # body_format: json
+    method: "GET"    
+    status_code:
+      - "200"
+      - "201"
+    url: "https://www.wormley.com/auth.json?username={{secret_username}}&password={{secret_password}}"
+  register: my_result
+  failed_when: false
 
-- name: Set the NTP Server String
-  ansible.builtin.set_fact:
-    ntp_list: |
-      {%- set ns = namespace(l = []) -%}
-      {%- for i in ntp_servers -%}
-      {%- set _ = ns.l.append(i) -%}
-      {%- endfor -%}
-      {{ ns.l }}
-
-
-- name: Print
+- name: Print The Result
   ansible.builtin.debug:
-    var: ntp_list
+    var: my_result
+
+- name: Extract the Token
+  ansible.builtin.set_fact:
+    my_token: "{{ my_result['json']['token'] }}"
+
+- name: Print The Token
+  ansible.builtin.debug:
+    msg: "The Super Secret Token Is: {{ my_token }}"
+ 
+- name: Call Something With The Token
+  ansible.builtin.uri:
+    headers:
+      Authorization: "Bearer {{ my_token }}"
+    url: "https://www.wormley.com/secure.txt"
+  register: my_secure_data
+
+- name: Print The Token
+  ansible.builtin.debug:
+    var: my_secure_data
+ 
 
 
-# - name: Copy our templated file to the remote host
-#   ansible.builtin.template:
-#     src: mytemplate.txt.j2
-#     dest: steve.txt
+# - name: Gather OneView facts
+#   hpe.oneview.oneview_fcoe_network_facts:
+
+
+# - name: Set the NTP Server List
+#   ansible.builtin.set_fact:
+#     ntp_servers:
+#       - 1.2.3.4
+#       - pool.ntp.org
+#       - timeypi.wormley.com
+
+# - name: Set the NTP Server String
+#   ansible.builtin.set_fact:
+#     ntp_list: |
+#       {%- set ns = namespace(l = []) -%}
+#       {%- for i in ntp_servers -%}
+#       {%- set _ = ns.l.append(i) -%}
+#       {%- endfor -%}
+#       {{ ns.l }}
+
+
+# - name: Print
+#   ansible.builtin.debug:
+#     var: ntp_list
+
+
+# # - name: Copy our templated file to the remote host
+# #   ansible.builtin.template:
+# #     src: mytemplate.txt.j2
+# #     dest: steve.txt
 
