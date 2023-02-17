@@ -10,32 +10,41 @@
     status_code:
       - "200"
       - "201"
-    url: "https://www.wormley.com/auth.json?username={{secret_username}}&password={{secret_password}}"
+    url: "https://www.wormley.com/auth1.json"
   register: my_result
-  failed_when: false
+
+
+
+
+
+  # until: my_result.status == 200
+  # retries: 5
+  # delay: 5
+
+
 
 - name: Print The Result
   ansible.builtin.debug:
     var: my_result
 
-- name: Extract the Token
-  ansible.builtin.set_fact:
-    my_token: "{{ my_result['json']['token'] }}"
+# - name: Extract the Token
+#   ansible.builtin.set_fact:
+#     my_token: "{{ my_result['json']['token'] }}"
 
-- name: Print The Token
-  ansible.builtin.debug:
-    msg: "The Super Secret Token Is: {{ my_token }}"
+# - name: Print The Token
+#   ansible.builtin.debug:
+#     msg: "The Super Secret Token Is: {{ my_token }}"
  
-- name: Call Something With The Token
-  ansible.builtin.uri:
-    headers:
-      Authorization: "Bearer {{ my_token }}"
-    url: "https://www.wormley.com/secure.txt"
-  register: my_secure_data
+# - name: Call Something With The Token
+#   ansible.builtin.uri:
+#     headers:
+#       Authorization: "Bearer {{ my_token }}"
+#     url: "https://www.wormley.com/secure.txt"
+#   register: my_secure_data
 
-- name: Print The Token
-  ansible.builtin.debug:
-    var: my_secure_data
+# - name: Print The Token
+#   ansible.builtin.debug:
+#     var: my_secure_data
  
 
 
