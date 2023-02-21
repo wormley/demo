@@ -1,13 +1,17 @@
 ---
 
- - name: Prepare for deployment
-   hosts: localhost
-   tasks:
+- name: Prepare for deployment
+  hosts: all
+  become: false
+  gather_facts: no
+  tasks:
+    # - name: Bob
+    #   debug:
+    #     msg: "{{ hostvars }}"
+    #   when: " 'ungrouped' is not in group_names"
 
-   - name: Print Hello World
-     ansible.builtin.debug:
-       msg: "Hello World"
 
-   - name: Print Hello World
-     ansible.builtin.debug:
-       msg: "Hello {{ ansible_host }}"
+
+    - name: Call My Role
+      ansible.builtin.import_role:
+        name: steve

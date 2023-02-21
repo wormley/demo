@@ -1,0 +1,24 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.195.0/containers/javascript-node
+{
+	"name": "Ansible",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"customizations": {
+	// Set *default* container specific settings.json values on container create.
+		"vscode":{
+
+			"settings": {},
+
+	// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"redhat.ansible",
+				"eamodio.gitlens",
+				"davidanson.vscode-markdownlint"
+			]
+		}
+	}
+
+
+}

@@ -1,0 +1,10 @@
+---
+
+- name: Print the server name
+  ansible.builtin.debug:
+    msg: "{{ server_name }}"
+
+- name: Fake-configure listen ports
+  ansible.builtin.set_fact:
+    listen_on: "{{ item }}"
+  loop: "{{ server_settings['listen_ports'] }}"
