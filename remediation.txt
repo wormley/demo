@@ -1,4 +1,13 @@
 
+curl -k --user $USER:$PASS -X POST -H 'Content-Type: application/json' -d @run.json  https://AAP_HOST/api/v2/job_templates/20/launch/
+
+run.json:
+{
+    "extra_vars": {
+        "survey_hostname": "foo"
+    }
+}
+
 
 Job Launched From Monitoring.
 
