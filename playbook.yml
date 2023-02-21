@@ -4,12 +4,23 @@
   become: false
   gather_facts: no
   tasks:
+
+    - name: Get hosts from magical API
+      ansible.builtin.uri:
+        url: "https://www.wormley.com/api.json"
+      register: result
+
+# { list_of_hosts: ['a','b'...]}
+
+
     - name: Add A Host to In Memory Inventory
       ansible.builtin.add_host:
-        name: '{{ survey_hostname }}'
+        name: '{{ item }}'
         groups: newhosts
         foo: 42
         ansible_connection: local
+      loop: "{{ result.json.list_of_hosts }}"
+
 
 - name: Do Post Deployment Stuff
   hosts: newhosts
