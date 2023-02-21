@@ -1,3 +1,2 @@
-[loadbalancer]
+[mygroup]
 localhost ansible_connection=local
-ttnpi1.wormley.com ansible_user=pi

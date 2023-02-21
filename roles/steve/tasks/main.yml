@@ -10,30 +10,36 @@
     status_code:
       - "200"
       - "201"
-    url: "https://www.wormley.com/auth1.json"
+    url: "https://www.wormley.com/{{ item }}"
   register: my_result
-
-
-
+  failed_when: false
+  when: "( my_result.status | default(0) ) != 200 "
+  loop:
+    - auth1.json
+    - auth2.json
+    - auth3.json
+    - auth4.json
+    - auth5.json
 
 
   # until: my_result.status == 200
   # retries: 5
   # delay: 5
 
-
-
-- name: Print The Result
-  ansible.builtin.debug:
-    var: my_result
-
-# - name: Extract the Token
-#   ansible.builtin.set_fact:
-#     my_token: "{{ my_result['json']['token'] }}"
-
-# - name: Print The Token
+# - name: Print The Result
 #   ansible.builtin.debug:
-#     msg: "The Super Secret Token Is: {{ my_token }}"
+#     var: my_result
+
+- name: Extract the Token
+  ansible.builtin.set_fact:
+    my_token: "{{ item['json']['token'] }}"
+  when: "my_token is not defined and item['json'] is defined and item['json']['token'] is defined"
+  loop: "{{ my_result['results'] }}"
+  loop_control:
+    label: "{{ item['item'] }}"
+- name: Print The Token
+  ansible.builtin.debug:
+    msg: "The Super Secret Token Is: {{ my_token }}"
  
 # - name: Call Something With The Token
 #   ansible.builtin.uri:
