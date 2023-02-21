@@ -4,7 +4,7 @@ COPY requirements.txt /data/requirements.txt
 
 WORKDIR /data
 
-RUN apt update; \
+RUN apt update; apt install -y locales-all sshpass;\
     apt install -y python3; \
     apt install -y python3-pip; \
     apt install -y git

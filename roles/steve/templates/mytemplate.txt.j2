@@ -1,0 +1,13 @@
+Hello {{ 'myvariable' | upper  }}
+
+Hello from {{ lookup('file','/etc/hostname') }}
+
+{%- set x=lookup('pipe','date') -%}
+
+{%- if x is search('Thu') -%}
+Yay it is thursday.
+{%- endif %}
+
+{%- for i in ntp_servers -%}
+server {{ i }}
+{% endfor -%}

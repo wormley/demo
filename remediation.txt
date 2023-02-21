@@ -1,0 +1,57 @@
+
+curl -k --user $USER:$PASS -X POST -H 'Content-Type: application/json' -d @run.json  https://AAP_HOST/api/v2/job_templates/20/launch/
+
+run.json:
+{
+    "extra_vars": {
+        "survey_hostname": "foo"
+    }
+}
+
+
+Job Launched From Monitoring.
+
+gather_facts: yes
+
+Verify still a problem
+
+ansible.builtin.command: "rm -Rf /var/log" 
+
+Either gather_facts or just run df.
+
+Verify still a problem
+
+playbook.yml:
+add host to in-memory
+switch Ansible groups
+include_role: remediate_disk
+
+
+role: remediate disk
+  role: clean_logs
+  role: notify_monitoring
+  role: open_ticket
+
+# return du for specified FS
+- include_role:
+    name: get_disk_use
+  var:
+    mountpoint: "{{ mount_to_check }}"
+
+- set_fact:
+    percent: "{{ include_role_result.percent }}"
+
+- include_role:
+    name: notify_monitoring_system
+  vars:
+    host: "{{ host_checked }}"
+    state: "fail"
+  when: "percent > 90"
+
+- include_role:
+    name: notify_monitoring_system
+  vars:
+    host: "{{ host_checked }}"
+    state: "{{ percent > 90 | ternary('fail','success')}}"
+
+
