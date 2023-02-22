@@ -1,23 +1,50 @@
 ---
 
- - name: Prepare for deployment
-   hosts: localhost
-   tasks:
+- name: Prepare for deployment
+  hosts: windows
+  gather_facts: no
+  tasks:
+  - community.windows.win_disk_facts:
+    register: disk_info
 
-    - ansible.builtin.include_vars:
-        file: "disk.json"
+  # - debug:
+  #     var: disk_info
 
-    - debug:
-        var: disk
-    
-    - set_fact:
-        c_drive: "{{ (disk.partitions | selectattr('drive_letter', 'equalto','C') | first)['volumes'] | first}}"
-    - set_fact:
-        percent: "{{100 * ( c_drive['size_remaining'] / c_drive['size'] ) }}"
+  - ansible.builtin.set_fact:
+      drive_utilization: >-
+        {%- set ns=namespace(usage={}) %}
+        {%- for i in disk_info.ansible_facts.ansible_disks %}
+        {%- for j in (i.partitions | default([])) %}
+        {%- if j.drive_letter | default(false) %}
+        {%- set vol = j.volumes[0] %}
+        {%- set pct = 100-(100 * vol.size_remaining / vol.size) %}
+        {%- set _ = ns.usage.update({j.drive_letter: pct})%}
+        {%- endif %}
+        {%- endfor %}
+        {%- endfor %}
+        {{- ns.usage }}
 
-    - debug:
-        msg: "{{ percent }}%"
+  - debug:
+      var: drive_utilization
 
-    - fail:
-        msg: "Not Enough Disk"
-      when: "percent|float < 10 "
+  - debug:
+      msg: "{{ 'Drive %s utilization is %.02f'|format(item,drive_utilization[item]) }} percent."
+    loop: "{{ drive_utilization.keys() | sort }}"
+
+  # - set_fact:
+  #     c_drive: >-
+  #       {{
+  #         (disk.partitions | 
+  #         selectattr('drive_letter', 'equalto','C') |
+  #           first
+  #         )['volumes'] | first
+  #       }}
+  # - set_fact:
+  #     percent: "{{100 * ( c_drive['size_remaining'] / c_drive['size'] ) }}"
+
+  # - debug:
+  #     msg: "{{ percent }}%"
+
+  # - fail:
+  #     msg: "Not Enough Disk"
+  #   when: "percent|float < 10 "
