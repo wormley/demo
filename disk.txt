@@ -1,0 +1,6 @@
+Drive C utilization is 49.27 percent.
+Drive D utilization is 0.00 percent.
+Drive E utilization is 99.90 percent.
+Drive F utilization is 0.00 percent.
+Drive G utilization is 0.34 percent.
+

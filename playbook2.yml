@@ -28,9 +28,27 @@
       var: drive_utilization
 
   - debug:
-      msg: "{{ 'Drive %s utilization is %.02f'|format(item,drive_utilization[item]) }} percent."
+      msg: "{{ 'Drive %s utilization is %.02f percent.'|format(item,drive_utilization[item]) }}"
     loop: "{{ drive_utilization.keys() | sort }}"
 
+
+  - ansible.builtin.set_fact:
+      disk_report: "{{ lookup('template','disk.txt.j2') }}"
+
+  - ansible.builtin.debug:
+      msg: "{{ disk_report }}"
+
+  - ansible.builtin.uri:
+      url: "My Log Server"
+      body_format: json
+      body:
+        hostname: "{{ ansible_hostname }}"
+        report_text: "{{ disk_report }}"
+
+  # - ansible.builtin.template:
+  #     src: "disk.txt.j2"
+  #     dest: "disk.txt"
+  #   delegate_to: localhost
   # - set_fact:
   #     c_drive: >-
   #       {{

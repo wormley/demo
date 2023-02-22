@@ -1,0 +1,3 @@
+{% for drive_letter in drive_utilization.keys() | sort %}
+{{ 'Drive %s utilization is %.02f percent.'|format(drive_letter,drive_utilization[drive_letter]) }}
+{% endfor %}
