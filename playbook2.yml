@@ -4,10 +4,20 @@
    hosts: localhost
    tasks:
 
-   - name: Print Hello World
-     ansible.builtin.debug:
-       msg: "Hello World"
+    - ansible.builtin.include_vars:
+        file: "disk.json"
 
-   - name: Print Hello World
-     ansible.builtin.debug:
-       msg: "Hello {{ ansible_host }}"
+    - debug:
+        var: disk
+    
+    - set_fact:
+        c_drive: "{{ (disk.partitions | selectattr('drive_letter', 'equalto','C') | first)['volumes'] | first}}"
+    - set_fact:
+        percent: "{{100 * ( c_drive['size_remaining'] / c_drive['size'] ) }}"
+
+    - debug:
+        msg: "{{ percent }}%"
+
+    - fail:
+        msg: "Not Enough Disk"
+      when: "percent|float < 10 "

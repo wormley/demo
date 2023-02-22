@@ -1,0 +1,23 @@
+{
+  "disk": {
+    "partitions": [
+      {
+        "drive_letter": "C",
+        "volumes": [
+          {
+            "size": 100,
+            "size_remaining": 7
+          }
+        ]
+      },
+      {
+        "drive_letter": "D",
+        "volumes": [
+          {
+            "size": 100
+          }
+        ]
+      }
+    ]
+  }
+}
