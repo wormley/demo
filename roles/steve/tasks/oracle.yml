@@ -1,9 +1,10 @@
 ---
 - name: Setup Credentials for Oracle
+  no_log: true
   ansible.builtin.set_fact:
       ora_username: "{{ lookup('env','VMWARE_USER') }}"
       ora_password: "{{ lookup('env','VMWARE_PASSWORD') }}"
-      ora_host: "{{  lookup('env','VMWARE_HOST') }}"
+      ora_hostname: "{{  lookup('env','VMWARE_HOST') }}"
       ora_sid: ORCL
 
 - name: Run an SQL Command
