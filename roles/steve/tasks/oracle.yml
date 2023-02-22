@@ -1,0 +1,22 @@
+---
+- name: Setup Credentials for Oracle
+  ansible.builtin.set_fact:
+      ora_username: "{{ lookup('env','VMWARE_USER') }}"
+      ora_password: "{{ lookup('env','VMWARE_PASSWORD') }}"
+      ora_host: "{{  lookup('env','VMWARE_HOST') }}"
+      ora_sid: ORCL
+
+- name: Run an SQL Command
+  ari_stark.ansible_oracle_modules.oracle_sql:
+    hostname: "{{ ora_hostname }}"
+    username: "{{ ora_username }}"
+    password: "{{ ora_password }}"
+    service_name: "{{ ora_sid }}"
+    sql: "SELECT table_name, owner from user_tables;"
+
+  register: ora_out
+
+- name: Print Results
+  ansible.builtin.debug:
+    var: ora_out
+
