@@ -4,37 +4,43 @@
   become: false
   gather_facts: no
   tasks:
-
-    - Call VMWare To Provision Host here...
-
-    - name: Get hosts from magical API
-      ansible.builtin.uri:
-        url: "https://www.wormley.com/api.json"
-      register: result
-
-# { list_of_hosts: ['a','b'...]}
-
-    - Wait for provisioning API to return
-
-    - name: Add A Host to In Memory Inventory
-      ansible.builtin.add_host:
-        name: '{{ item }}'
-        groups: newhosts
-        foo: 42
-        ansible_connection: local
-      loop: "{{ result.json.list_of_hosts }}"
+    - name: Call the role
+      ansible.builtin.include_role:
+        name: steve
+        tasks_from: credential.yml
 
 
-- name: Do Post Deployment Stuff
-  hosts: newhosts
-  become: false
-  gather_facts: no
-  tasks:
-    - name: Wait
-      ansible.builtin.wait_for_connection:
+
+#     - Call VMWare To Provision Host here...
+
+#     - name: Get hosts from magical API
+#       ansible.builtin.uri:
+#         url: "https://www.wormley.com/api.json"
+#       register: result
+
+# # { list_of_hosts: ['a','b'...]}
+
+#     - Wait for provisioning API to return
+
+#     - name: Add A Host to In Memory Inventory
+#       ansible.builtin.add_host:
+#         name: '{{ item }}'
+#         groups: newhosts
+#         foo: 42
+#         ansible_connection: local
+#       loop: "{{ result.json.list_of_hosts }}"
+
+
+# - name: Do Post Deployment Stuff
+#   hosts: newhosts
+#   become: false
+#   gather_facts: no
+#   tasks:
+#     - name: Wait
+#       ansible.builtin.wait_for_connection:
         
         
-    - name: Print the value of foo
-      ansible.builtin.debug:
-        var: foo
+#     - name: Print the value of foo
+#       ansible.builtin.debug:
+#         var: foo
 
