@@ -1,21 +1,68 @@
 ---
 
-- name: Ping windows
-  ansible.windows.win_ping:
+- name: Write a file to a share
+  # become: true
+  ansible.windows.win_copy:
+    dest: "\\\\FILESERVER\\data\\test.txt"
+    content: "This is a file\n"
 
-- name: Get Service
-  ansible.windows.win_powershell:
-    script: |
-      Get-Service
 
-  register: ps_out
+# - name: List of Services
+#   ansible.builtin.set_fact:
+#     svc_started:
+#       - "Steam Client Service"
+#       - "svsvc"
+#       - "sshd"
 
-# - name: Print the stuff
+# # - name: Ping windows
+# #   ansible.windows.win_ping:
+
+# - name: Get Service
+#   become: true
+#   ansible.windows.win_powershell:
+#     script: |
+#       Get-Service
+
+#   register: ps_out
+
+# # - name: Print the stuff
+# #   ansible.builtin.debug:
+# #     var: ps_out
+# # - name: Store to a file
+# #   ansible.builtin.copy:
+# #     dest: "big.json"
+# #     content: "{{ ps_out.output }}"
+# #     # | selectattr('Name','in',['ssh-agent','sshd']) }}"
+# #   delegate_to: localhost
+
+# - name: Enumerate Services We Want Started
+#   ansible.builtin.set_fact:
+#     svc_to_check: "{{ ps_out.output | selectattr('Name','in',svc_started) }}"
+
+# - name: Find Stopped Services
+#   ansible.builtin.set_fact:
+#     need_start: >-
+#       {%- set ns = namespace( n = [] ) %}
+#       {%- for i in svc_to_check %}
+#       {%- if i.Status.String == 'Stopped' %}
+#       {%- set _ = ns.n.append(i.Name) %}
+#       {%- endif %}
+#       {%- endfor %}
+#       {{- ns.n }}
+
+# - name: Start Services Which Are Stopped
+#   ansible.windows.win_powershell:
+#     script: |
+#       Start-Service -Name "{{ item }}"
+#       Get-Service -Name "{{ item }}"
+#   loop: "{{ need_start }}"
+#   until: start_status.output[0].Status.String == "Running"
+#   retries: 3
+#   delay: 2
+#   register: start_status
+
+# - name: Print status
 #   ansible.builtin.debug:
-#     var: ps_out
-- name: Store to a file
-  ansible.builtin.copy:
-    dest: "big.json"
-    content: "{{ ps_out.output | selectattr('Name','in',['ssh-agent','sshd']) }}"
-  delegate_to: localhost
+#     var: start_status
+ 
 
