@@ -13,7 +13,7 @@
     username: "{{ ora_username }}"
     password: "{{ ora_password }}"
     service_name: "{{ ora_sid }}"
-    sql: "SELECT * FROM user_tables"
+    sql: "SELECT * FROM test"
 
   register: ora_out
 
