@@ -1,0 +1,5 @@
+---
+collections:
+  - community.general
+  - ari_stark.ansible_oracle_modules
+

@@ -1,0 +1,16 @@
+---
+version: 1
+dependencies:
+  galaxy: requirements.yml
+  python: requirements.txt
+  system: bindep.txt
+# build_arg_defaults:
+#   EE_BASE_IMAGE: 'rhautomation2.lab.nwa.evtcorp.com/ee-supported-rhel8'
+build_arg_defaults:
+  EE_BASE_IMAGE: 'registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest'
+  
+additional_build_steps:
+  append:
+   - COPY 'instantclient-*.zip' /
+   - RUN mkdir -p /opt/oracle && for i in /instantclient*zip ; do unzip -d /opt/oracle/ $i; done && rm /instantclient-*.zip
+   - RUN echo /opt/oracle/instant* >/etc/ld.so.conf.d/oracle-instantclient.conf && ldconfig

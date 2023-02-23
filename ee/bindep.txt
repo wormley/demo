@@ -1,0 +1,4 @@
+libaio
+unzip
+zip
+

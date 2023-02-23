@@ -11,11 +11,12 @@
 
 - name: Insert a row
   ari_stark.ansible_oracle_modules.oracle_sql:
-    hostname: "{{ ora_hostname }}"
+    hostname: "{{ item }}"
     username: "{{ ora_username }}"
     password: "{{ ora_password }}"
     service_name: "{{ ora_sid }}"
     sql: "INSERT INTO test VALUES({{number}},'{{fruit}}')"
+  loop: {{all my databases}}
 
 - name: Get the table data
   ari_stark.ansible_oracle_modules.oracle_sql:
