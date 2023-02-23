@@ -1,10 +1,24 @@
 ---
 
-- name: Get all RDS instances
-  amazon.aws.rds_instance_info:
-    region: us-east-1
-  register: rds_instances
+# - name: Get all RDS instances
+#   amazon.aws.rds_instance_info:
+#     region: us-east-1
+#   register: rds_instances
 
-- name: Print RDS Instances
+# - name: Print RDS Instances
+#   ansible.builtin.debug:
+#     var: rds_instances
+
+- name: Edit a File
+  ansible.builtin.copy:
+    dest: "file.txt"
+    content: "{{ range(100) | random }}\n"
+
+- name: Cat The File
+  ansible.builtin.shell:
+    cmd: "cat file.txt"
+  register: output
+
+- name: Print Var
   ansible.builtin.debug:
-    var: rds_instances
+    var: output
