@@ -1,6 +1,6 @@
 ---
 - name: Prepare Hosts For deployment
-  hosts: windows
+  hosts: localhost
   become: false
   gather_facts: no
   tasks:
