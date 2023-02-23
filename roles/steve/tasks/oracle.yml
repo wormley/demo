@@ -6,10 +6,11 @@
       ora_password: "{{ lookup('env','VMWARE_PASSWORD') }}"
       ora_hostname: "{{  lookup('env','VMWARE_HOST') }}"
       ora_sid: ORCL
-      fruit: "{{ ['apple','pear','banana','strawberry'] | random}}"
+      fruit: "{{ ['apple','pear','banana','strawberry'] | random }}"
       number: "{{ range(100) | random }}"
 
 - name: Insert a row
+  ari_stark.ansible_oracle_modules.oracle_sql:
     hostname: "{{ ora_hostname }}"
     username: "{{ ora_username }}"
     password: "{{ ora_password }}"
