@@ -14,7 +14,7 @@
     username: "{{ ora_username }}"
     password: "{{ ora_password }}"
     service_name: "{{ ora_sid }}"
-    sql: "INSERT INTO test VALUES({{number},'{{fruit}}'})"
+    sql: "INSERT INTO test VALUES({{number}},'{{fruit}}')"
 
 - name: Get the table data
   ari_stark.ansible_oracle_modules.oracle_sql:
