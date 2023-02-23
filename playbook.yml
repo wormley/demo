@@ -7,7 +7,7 @@
     - name: Call the role
       ansible.builtin.include_role:
         name: steve
-        tasks_from: powershell.yml
+        tasks_from: aws.yml
 
 
 

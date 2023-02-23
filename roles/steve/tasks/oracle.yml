@@ -2,7 +2,7 @@
 - name: Setup Credentials for Oracle
   no_log: true
   ansible.builtin.set_fact:
-      ora_username: "{{ lookup('env','VMWARE_USER') }}"
+      ora_username: "{{ lookup('hashi','VMWARE_USER') }}"
       ora_password: "{{ lookup('env','VMWARE_PASSWORD') }}"
       ora_hostname: "{{  lookup('env','VMWARE_HOST') }}"
       ora_sid: ORCL
@@ -11,7 +11,7 @@
 
 - name: Insert a row
   ari_stark.ansible_oracle_modules.oracle_sql:
-    hostname: "{{ item }}"
+    hostname: "{{ ora_ }}"
     username: "{{ ora_username }}"
     password: "{{ ora_password }}"
     service_name: "{{ ora_sid }}"

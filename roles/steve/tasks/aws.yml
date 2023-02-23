@@ -1,0 +1,9 @@
+---
+
+- name: Get all RDS instances
+  amazon.aws.rds_instance_info:
+  register: rds_instances
+
+- name: Print RDS Instances
+  ansible.builtin.debug:
+    var: rds_instances
