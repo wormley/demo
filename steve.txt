@@ -1,5 +1,0 @@
-Hello MYVARIABLE
-
-Hello from 1f06a49f29b6Yay it is thursday.server 1.2.3.4
-server pool.ntp.org
-server timeypi.wormley.com

@@ -2,8 +2,10 @@
 localhost ansible_connection=local
 
 [windows]
-livingpc.wormley.com ansible_host=192.168.1.197 ansible_user=wormley ansible_connection=ssh ansible_shell_type=cmd
+# This sample system uses the ansible_shell_type to indicate
+# it is a Windows system, otherwise with ssh ansible will assume Unix and bash/sh and python
+win10desktop ansible_host=192.168.1.197 ansible_user=wormley ansible_connection=ssh ansible_shell_type=cmd
 
 [linux]
-linuxhost ansibe_host=IPOFLINUX...
+linuxhost ansible_host=IPOFLINUX...
 

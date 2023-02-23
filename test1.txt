@@ -1,4 +1,0 @@
-Hello World
-Something else
-Hello 3
-Hello World2
