@@ -1,0 +1,21 @@
+---
+
+- name: Ping windows
+  ansible.windows.win_ping:
+
+- name: Get Service
+  ansible.windows.win_powershell:
+    script: |
+      Get-Service
+
+  register: ps_out
+
+# - name: Print the stuff
+#   ansible.builtin.debug:
+#     var: ps_out
+- name: Store to a file
+  ansible.builtin.copy:
+    dest: "big.json"
+    content: "{{ ps_out.output | selectattr('Name','in',['ssh-agent','sshd']) }}"
+  delegate_to: localhost
+

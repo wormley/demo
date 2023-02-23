@@ -1,13 +1,13 @@
 ---
 - name: Prepare Hosts For deployment
-  hosts: localhost
+  hosts: windows
   become: false
   gather_facts: no
   tasks:
     - name: Call the role
       ansible.builtin.include_role:
         name: steve
-        tasks_from: oracle.yml
+        tasks_from: powershell.yml
 
 
 
