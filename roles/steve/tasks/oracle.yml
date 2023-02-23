@@ -13,7 +13,7 @@
     username: "{{ ora_username }}"
     password: "{{ ora_password }}"
     service_name: "{{ ora_sid }}"
-    sql: "SELECT table_name, owner from user_tables;"
+    sql: "SELECT table_name, owner FROM user_tables ORDER BY owner,table_name;"
 
   register: ora_out
 
