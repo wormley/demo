@@ -17,6 +17,7 @@
 - name: Cat The File
   ansible.builtin.shell:
     cmd: "cat file.txt"
+  check_mode: true
   register: output
 
 - name: Print Var
