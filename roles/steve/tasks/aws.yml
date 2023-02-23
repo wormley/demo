@@ -2,6 +2,7 @@
 
 - name: Get all RDS instances
   amazon.aws.rds_instance_info:
+    region: us-east-1
   register: rds_instances
 
 - name: Print RDS Instances
