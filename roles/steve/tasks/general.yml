@@ -1,0 +1,6 @@
+---
+
+
+- name: Use a community.general module
+  community.general.pip_package_info:
+
