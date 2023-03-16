@@ -9,8 +9,9 @@ dependencies:
 build_arg_defaults:
   EE_BASE_IMAGE: 'registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest'
   
-additional_build_steps:
-  append:
-   - COPY 'instantclient-*.zip' /
-   - RUN mkdir -p /opt/oracle && for i in /instantclient*zip ; do unzip -d /opt/oracle/ $i; done && rm /instantclient-*.zip
-   - RUN echo /opt/oracle/instant* >/etc/ld.so.conf.d/oracle-instantclient.conf && ldconfig
+#additional_build_steps:
+#  append:
+#   - COPY 'instantclient-*.zip' /
+#   - RUN mkdir -p /opt/oracle && for i in /instantclient*zip ; do unzip -d /opt/oracle/ $i; done && rm /instantclient-*.zip
+#   - RUN echo /opt/oracle/instant* >/etc/ld.so.conf.d/oracle-instantclient.conf && ldconfig
+
