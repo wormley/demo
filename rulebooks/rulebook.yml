@@ -10,8 +10,8 @@
     - name: Say Hello
       condition: event.payload.message == "Hello"
       action:
-        debug:
+#        debug:
 
-#        run_job_template:
-#          name: Steve 1
-#          organization: Default
+        run_job_template:
+          name: Steve 1
+          organization: Default
